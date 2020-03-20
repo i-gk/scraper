@@ -73,17 +73,17 @@ class App extends React.Component {
 
     switch (key) {
       case "activeCases":
-        record.label = `Active Cases: ${data[key]}`;
+        record.label = `Active Cases`;
         record.color = "hsl(204, 70%, 50%)";
         break;
 
       case "totalDeaths":
-        record.label = `Deceased count: ${data[key]}`;
+        record.label = `Deceased count`;
         record.color = "hsl(59, 70%, 50%)";
         break;
 
       case "totalRecovered":
-          record.label = `Recovered count: ${data[key]}`;
+          record.label = `Recovered count`;
           record.color = "hsl(71, 70%, 50%)";
         break;
 
