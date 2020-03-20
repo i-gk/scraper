@@ -1,59 +1,129 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
+import "./App.css";
+import Pie from "./components/charts/pie";
+import NumberTemplate from "./components/numbers/number";
+import Bullet from "./components/charts/bullet";
 
 class App extends React.Component {
-  
-
   constructor(props) {
     super(props);
     this.state = {
-      greeting: '',
-      name: ''
-    }
+      greeting: "",
+      name: "",
+      wisconsinData: "",
+      wisconsinChartData: []
+    };
   }
 
-  handleChange(event) {
-    this.setState({name: event.target.value});  
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    fetch(`/api/greeting?name=${encodeURIComponent(this.state.name)}`)
+  componentDidMount() {
+    fetch(`/api/data`)
       .then(response => response.json())
-      .then(state => this.setState(state));
+      .then(response => {
+        let pieChartData = this.createChartData(response);
+        console.log(`pieChartData ${JSON.stringify(pieChartData)}`);
+
+        this.setState({
+          wisconsinData: response,
+          wisconsinChartData: pieChartData
+        });
+      });
+  }
+
+  createChartData(data) {
+    let results = [];
+
+    let { ["state"]: _, ...numbericData } = data;
+    Object.keys(numbericData).forEach(key => {
+      let record = this.getChartObject(data, key);
+      if (record !== null) {
+        results.push(record);
+      }
+    });
+    return results;
+  }
+
+  getChartObject(data, key) {
+    let record = {
+      id: "",
+      label: "",
+      value: "",
+      color: ""
+    };
+
+    if (data[key] <= 0) {
+      return null;
+    } else {
+      record = {
+        id: key,
+        value: data[key]
+      };
+    }
+
+    switch (key) {
+      case "activeCases":
+        record.label = `Active Cases: ${data[key]}`;
+        record.color = "hsl(204, 70%, 50%)";
+        break;
+
+      case "totalDeaths":
+        record.label = `Deceased count: ${data[key]}`;
+        record.color = "hsl(59, 70%, 50%)";
+        break;
+
+      case "totalRecovered":
+          record.label = `Recovered count: ${data[key]}`;
+          record.color = "hsl(71, 70%, 50%)";
+        break;
+
+      default:
+        return null;
+    }
+    return record;
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <form onSubmit={this.handleSubmit.bind(this)}>
-          <label htmlFor="name">Enter your name: </label>
-              <input
-                id="name"
-                type="text"
-                value={this.state.name}
-                onChange={this.handleChange.bind(this)}
-              />
-              <button type="submit">Submit</button>
-          </form>
-          <p>{this.state.greeting}</p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {this.state.wisconsinChartData.length > 0 && (
+          <div>
+            <Pie data={this.state.wisconsinChartData} />
+
+          <div style={{display: 'flex', margin: '50px'}}>
+            <div style={{'flex': 1, backgroundColor: '#21a521'}}>
+              <NumberTemplate label="Total Recovered" value={this.state.wisconsinData.totalRecovered} />
+            </div>
+            
+            <div style={{'flex': 2, justifyContent: 'center'}}>
+              <Bullet data={[{
+                id: "WI", 
+                ranges: [0, 50, 100, 150, (this.state.wisconsinData.totalCases + 25)],
+                measures: [this.state.wisconsinData.totalDeaths],
+                markers: [this.state.wisconsinData.totalCases]
+                }]} />
+            </div>
+
+            <div style={{'flex': 1, backgroundColor: '#8a8a8a'}}>
+              <NumberTemplate label="Total Deceased" value={this.state.wisconsinData.totalDeaths} />
+            </div>
+          </div>
+          </div>
+          
+        )}
       </div>
+
+      /* <div className="App">
+        <ResponsivePie
+          data={this.state.wisconsinChartData}
+          margin={{ top: 1.5, right: 1.5, bottom: 1.5, left: 1.5 }}
+          innerRadius={0.5}
+        />
+        <header className="App-header">
+          <p>{this.state.wisconsinData.totalCases}</p>
+
+          
+        </header>
+      </div> */
     );
   }
 }
