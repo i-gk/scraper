@@ -2,7 +2,7 @@ import React from "react";
 import { ResponsiveBullet } from "@nivo/bullet";
 
 const Bullet = (props) => (
-    <div style={{ height: 300}}>
+    <div style={{ height: 350}}>
     <ResponsiveBullet
       data={props.data}
       margin={{ top: 10, right: 80, bottom: 20, left: 80 }}
@@ -15,6 +15,7 @@ const Bullet = (props) => (
       titleOffsetY={-20}
     />
     <div className="Title">Deceased meter</div>
+    <hr />
   </div>
 );
 

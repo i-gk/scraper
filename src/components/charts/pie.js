@@ -5,12 +5,11 @@ const Pie = (props) => (
     <div style={{ height: 350}}>
     <ResponsivePie
       data={props.data}
-      margin={{ top: 40, right: 80, bottom: 40, left: 80 }}
+      margin={{ top: 20, right: 80, bottom: 0, left: 80 }}
       innerRadius={0.5}
-      padAngle={0.7}
-      cornerRadius={3}
+      padAngle={0.9}
+      cornerRadius={15}
       colors={{ scheme: 'accent' }}
-      enableRadialLabels={false}
       borderWidth={1}
       borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
       slicesLabelsSkipAngle={10}
@@ -21,6 +20,7 @@ const Pie = (props) => (
       fit={true}
     />
     <div className="Title">Active vs Recovered</div>
+    <hr style={{marginBottom: '10px'}} />
   </div>
 );
 

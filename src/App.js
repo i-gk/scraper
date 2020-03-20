@@ -100,24 +100,24 @@ class App extends React.Component {
           <div>
             <Pie data={this.state.wisconsinChartData} />
 
-          <div style={{display: 'flex', margin: '50px'}}>
-            <div style={{'flex': 1, backgroundColor: '#21a521'}}>
-              <NumberTemplate label="Total Recovered" value={this.state.wisconsinData.totalRecovered} />
-            </div>
-            
-            <div style={{'flex': 2, justifyContent: 'center'}}>
+            <div style={{'flex': 2, marginTop: '80px'}}>
               <Bullet data={[{
                 id: "WI", 
                 ranges: [0, 50, 100, 150, (this.state.wisconsinData.totalCases + 25)],
                 measures: [this.state.wisconsinData.totalDeaths],
                 markers: [this.state.wisconsinData.totalCases]
                 }]} />
-            </div>
+            </div>     
+          {/* <div style={{'flex': 1, display: 'flex', margin: '50px'}}>
+            
+            <div style={{backgroundColor: '#21a521'}}>
+                <NumberTemplate label="Total Recovered" value={this.state.wisconsinData.totalRecovered} />
+              </div>
 
-            <div style={{'flex': 1, backgroundColor: '#8a8a8a'}}>
-              <NumberTemplate label="Total Deceased" value={this.state.wisconsinData.totalDeaths} />
-            </div>
-          </div>
+              <div style={{'flex': 1, backgroundColor: '#8a8a8a'}}>
+                <NumberTemplate label="Total Deceased" value={this.state.wisconsinData.totalDeaths} />
+              </div>
+          </div> */}
           </div>
           
         )}

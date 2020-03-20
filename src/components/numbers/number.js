@@ -14,7 +14,8 @@ const NumberTemplate = (props) => (
 const styles = {
     root: {
         display: 'flex',
-        height: 300, 
+        height: 300,
+        width: 100,
         margin: 'auto'
     },
     txtContent: {
