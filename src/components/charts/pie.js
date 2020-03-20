@@ -2,10 +2,10 @@ import React from "react";
 import { ResponsivePie } from "@nivo/pie";
 
 const Pie = (props) => (
-    <div style={{ height: 350}}>
+    <div style={{ height: 330}}>
     <ResponsivePie
       data={props.data}
-      margin={{ top: 20, right: 80, bottom: 0, left: 80 }}
+      margin={{ top: 30, right: 80, bottom: 0, left: 80 }}
       innerRadius={0.5}
       padAngle={0.9}
       cornerRadius={15}
