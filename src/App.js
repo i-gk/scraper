@@ -96,8 +96,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div style={{margin: '10px', fontSize: '18px', fontFamily: 'fantasy', fontWeight: 'bolder'}}>
-          Wisconsin COVID-19 Live status
+        <div style={{margin: '10px', fontSize: '16px', fontFamily: 'fantasy', fontWeight: 'bolder'}}>
+          Wisconsin COVID-19 Live Status
         </div>
         {this.state.wisconsinChartData.length > 0 && (
           <div>
