@@ -5,6 +5,9 @@ import Pie from "./components/charts/pie";
 import NumberTemplate from "./components/numbers/number";
 import Bullet from "./components/charts/bullet";
 
+
+const REFRESH_RATE = 60000;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +20,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.getScrapingData();
+  }
+
+  getScrapingData() {
+    console.log('getScrapingData executed')
     fetch(`/api/data`)
       .then(response => response.json())
       .then(response => {
@@ -40,6 +48,9 @@ class App extends React.Component {
         results.push(record);
       }
     });
+
+    // scheduling defined time data fetch
+    setTimeout(this.getScrapingData.bind(this), REFRESH_RATE)
     return results;
   }
 
